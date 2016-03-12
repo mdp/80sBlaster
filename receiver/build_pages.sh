@@ -7,8 +7,7 @@ fi
 
 npm i
 npm run build
-cd ..
-cp -R dist/* pages/.
+cp -R ./dist/* pages/.
 cd pages
 git add .
 git ci -m "Update gh-pages"

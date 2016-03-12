@@ -5,7 +5,6 @@ if [[ -n $(git status -s) ]]; then
   exit 1
 fi
 
-cd demo
 npm i
 npm run build
 cd ..

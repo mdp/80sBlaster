@@ -1,0 +1,4 @@
+[submodule "receiver/pages"]
+	path = receiver/pages
+	url = git@github.com:mdp/80sBlaster.git
+	branch = gh-pages

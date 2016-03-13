@@ -1,0 +1,6 @@
+{$DOMAIN}
+root ./dist
+
+gzip
+log stdout
+errors stdout

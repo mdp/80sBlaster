@@ -14,7 +14,7 @@ class Chromecaster: NSObject, GCKDeviceScannerListener, GCKDeviceManagerDelegate
   
   var bridge          : RCTBridge!
   
-  private let kReceiverAppID = "1899511B"
+  private let kReceiverAppID = "8DFFC50C"
   private var deviceManager: GCKDeviceManager?
   private var deviceScanner: GCKDeviceScanner?
   private var devices: Dictionary<String, GCKDevice> = Dictionary<String, GCKDevice>()

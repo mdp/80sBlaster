@@ -10,7 +10,8 @@ import React, {
   NativeAppEventEmitter,
   StyleSheet,
   Text,
-  View
+  ListView,
+  View,
 } from 'react-native';
 
 class EightiesBlaster extends Component {
@@ -19,6 +20,10 @@ class EightiesBlaster extends Component {
     console.log("StartingScan")
     this.subscribe()
     NativeModules.Chromecaster.startScan()
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows(['']),
+    };
   }
 
   subscribe() {
@@ -27,24 +32,33 @@ class EightiesBlaster extends Component {
       'DeviceListChanged',
       (list) => {
         console.log('DeviceListChanged', list)
-        NativeModules.Chromecaster.connectToDevice(list.devices[0])
+        this.setState({dataSource: this.state.dataSource.cloneWithRows(list.devices)})
       }
     );
+  }
+
+  renderRow(rowData) {
+    return (
+      <Text
+      onPress={()=>{
+        console.log(rowData)
+        NativeModules.Chromecaster.connectToDevice(rowData)
+      }} >
+      {rowData}
+      </Text>
+    )
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to 80's Blaster
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderRow.bind(this)}
+        />
       </View>
     );
   }

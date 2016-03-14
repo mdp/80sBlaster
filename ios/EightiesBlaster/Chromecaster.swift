@@ -14,25 +14,24 @@ class Chromecaster: NSObject, GCKDeviceScannerListener, GCKDeviceManagerDelegate
   
   var bridge          : RCTBridge!
   
-  private let kReceiverAppID = "8DFFC50C"
+  static private var deviceScanner: GCKDeviceScanner?
   private var deviceManager: GCKDeviceManager?
-  private var deviceScanner: GCKDeviceScanner?
+  
+  private let kReceiverAppID = "8DFFC50C"
   private var devices: Dictionary<String, GCKDevice> = Dictionary<String, GCKDevice>()
-  private var isInitialized = false
   
   @objc func startScan() -> Void {
     dispatch_async(dispatch_get_main_queue(), { [unowned self] in
-      if (!self.isInitialized) {
+      if (Chromecaster.deviceScanner == nil) {
         print("Initializing")
         let filterCriteria = GCKFilterCriteria(forAvailableApplicationWithID:
           self.kReceiverAppID)
-        self.deviceScanner = GCKDeviceScanner(filterCriteria:filterCriteria)
-        self.deviceScanner?.addListener(self)
+        Chromecaster.deviceScanner = GCKDeviceScanner(filterCriteria:filterCriteria)
+        Chromecaster.deviceScanner?.addListener(self)
         print("startScan")
-        self.deviceScanner?.startScan()
-        self.isInitialized = true
+        Chromecaster.deviceScanner?.startScan()
       }
-      })
+    })
   }
   
   @objc func connectToDevice(deviceName: String) -> Void {

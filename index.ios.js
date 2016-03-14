@@ -9,10 +9,14 @@ import React, {
   NativeModules,
   NativeAppEventEmitter,
   StyleSheet,
+  TouchableHighlight,
   Text,
+  Image,
   ListView,
   View,
 } from 'react-native';
+
+let headerImg = require('./assets/80sBlasterHeader.png')
 
 class EightiesBlaster extends Component {
   constructor(props) {
@@ -37,21 +41,26 @@ class EightiesBlaster extends Component {
     );
   }
 
+  connectAndPlay(name) {
+    NativeModules.Chromecaster.connectToDevice(name)
+  }
+
   renderRow(rowData) {
     return (
-      <Text
-      onPress={()=>{
-        console.log(rowData)
-        NativeModules.Chromecaster.connectToDevice(rowData)
-      }} >
-      {rowData}
-      </Text>
+      <TouchableHighlight
+      onPress={this.connectAndPlay.bind(rowData)}>
+        <Text
+        style={{color:'#FFFFFF'}}>
+        {rowData}
+        </Text>
+      </TouchableHighlight>
     )
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <Image source={headerImg}/>
         <Text style={styles.welcome}>
           Welcome to 80's Blaster
         </Text>
@@ -69,7 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#000000',
   },
   welcome: {
     fontSize: 20,

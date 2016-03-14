@@ -40,7 +40,7 @@ class App extends React.Component {
     let item = catalog[0]
     return (
       <div className='main' style={{backgroundColor: item.backgroundColor}}>
-        <div id='overlay'>80's Blaster</div>
+        <div id='overlay'><img src='logo.png' width='300' /></div>
         <YouTube
           playlistId={this.state.playlistId}
           configuration={

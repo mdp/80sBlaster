@@ -123,7 +123,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'overlay' },
-	          '80\'s Blaster'
+	          _react2.default.createElement('img', { src: 'logo.png', width: '300' })
 	        ),
 	        _react2.default.createElement(_youtube2.default, {
 	          playlistId: this.state.playlistId,
